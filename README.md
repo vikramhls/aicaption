@@ -1,6 +1,10 @@
 # 🎥 AI Captioner — Automated Video Transcription System
 
-![UI Preview](assets/ui_preview.png)
+### Platform Overview
+![Hero View](assets/ui_hero.png)
+
+### Neural Processing Interface
+![Upload View](assets/ui_upload.png)
 
 > Containerized AI-powered video captioning using **OpenAI Whisper** — zero cloud cost, fully local ML pipeline.
 
