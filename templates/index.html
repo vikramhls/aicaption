@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Precision Audio Intelligence. Enterprise-grade automated transcription and captioning powered by advanced machine learning.">
+    <title>AI Captioner | Enterprise Speech Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css?v=4">
+    
+    <!-- GSAP for Scroll Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Three.js for 3D Background -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <!-- Tailwind CSS (without preflight to protect existing styles) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            corePlugins: {
+                preflight: false,
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- 3D Canvas Container -->
+    <div id="canvas-container"></div>
+    <div class="glow-overlay"></div>
+
+    <div class="container scroll-container">
+        <!-- Hero Section -->
+        <section class="h-[80vh] w-full mb-16 relative z-10" id="prisma-hero">
+            <div class="relative h-full w-full overflow-hidden rounded-2xl md:rounded-[2rem]">
+                <!-- Background video -->
+                <video
+                    autoplay
+                    loop
+                    muted
+                    playsinline
+                    class="absolute inset-0 h-full w-full object-cover"
+                    src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4"
+                ></video>
+
+                <!-- Noise overlay -->
+                <div class="pointer-events-none absolute inset-0 opacity-[0.7] mix-blend-overlay" style="background-image: url('https://grainy-gradients.vercel.app/noise.svg');"></div>
+
+                <!-- Gradient overlay -->
+                <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80"></div>
+
+                <!-- Navbar (Merged Header) -->
+                <nav class="absolute left-1/2 top-4 z-20 -translate-x-1/2 w-11/12 max-w-5xl">
+                    <div class="flex items-center justify-between rounded-2xl bg-black/40 backdrop-blur-md px-6 py-3 shadow-lg border border-white/10 gs-fade-down">
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-[#00F0FF] to-[#7000FF] rounded-xl flex items-center justify-center shadow-[0_0_20px_rgba(112,0,255,0.3)] text-white">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                                </svg>
+                            </div>
+                            <div class="hidden sm:block text-left">
+                                <h1 class="font-['Outfit'] text-lg font-extrabold text-white leading-tight m-0 tracking-tight">AI Captioner</h1>
+                                <p class="text-[0.7rem] text-white/60 font-medium m-0">Enterprise Audio Pipeline</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3">
+                            <span class="flex items-center gap-2 px-3 py-1.5 rounded-full text-[0.65rem] font-bold uppercase tracking-wider border border-white/10 bg-[#00F0FF]/10 text-[#00F0FF] backdrop-blur-md">
+                                <span class="w-1.5 h-1.5 bg-[#00F0FF] rounded-full shadow-[0_0_8px_#00F0FF] animate-pulse"></span>
+                                System Online
+                            </span>
+                            <span class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full text-[0.65rem] font-bold uppercase tracking-wider border border-white/10 bg-[#7000FF]/20 text-[#C480FF] backdrop-blur-md">
+                                v2.0 Neural Engine
+                            </span>
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- Hero content -->
+                <div class="absolute bottom-0 left-0 right-0 px-4 pb-2 sm:px-6 md:px-10">
+                    <div class="grid grid-cols-12 items-end gap-4">
+                        
+                        <div class="col-span-12 lg:col-span-8">
+                            <h2 class="font-['Outfit'] font-bold leading-[0.85] tracking-[-0.05em] text-[18vw] sm:text-[16vw] md:text-[14vw] lg:text-[12vw] text-white m-0">
+                                <div class="inline-flex flex-wrap relative" id="prisma-title">
+                                    <!-- Populated by JS -->
+                                </div>
+                            </h2>
+                        </div>
+
+                        <div class="col-span-12 flex flex-col gap-5 pb-6 lg:col-span-4 lg:pb-10">
+                            
+                            <p class="text-sm text-white/80 sm:text-base md:text-lg m-0 gs-prisma-desc font-light" style="line-height: 1.4;">
+                                Harness the power of local machine learning to generate hyper-accurate, perfectly-timed transcription outputs with absolute precision.
+                            </p>
+
+                            <button onclick="document.getElementById('upload-section').scrollIntoView({behavior: 'smooth'})" class="group inline-flex items-center gap-2 self-start rounded-full bg-gradient-to-r from-[#00F0FF] to-[#7000FF] py-1.5 pl-6 pr-1.5 text-sm font-bold text-white transition-all hover:gap-4 sm:text-base gs-prisma-btn border-none cursor-pointer shadow-[0_0_20px_rgba(112,0,255,0.4)] hover:shadow-[0_0_30px_rgba(0,240,255,0.6)]">
+                                Initialize Pipeline
+                                <span class="flex h-10 w-10 items-center justify-center rounded-full bg-black/50 backdrop-blur-sm transition-transform group-hover:scale-110">
+                                    <i data-lucide="arrow-down" class="h-5 w-5 text-white"></i>
+                                </span>
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upload Section -->
+        <section class="upload-section gs-zoom-in" id="upload-section">
+            <!-- 3D Tilt Wrapper -->
+            <div class="tilt-wrapper" id="tilt-wrapper">
+                <div class="upload-card glass-card">
+                    <div class="drop-zone" id="drop-zone">
+                        <div class="drop-zone-content">
+                            <div class="upload-icon">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                            </div>
+                            <h3>Drag & Drop Media Assets</h3>
+                            <p>or click to browse local files</p>
+                            <p class="file-hint">Supported Formats: MP4, AVI, MOV, MKV, WebM</p>
+                        </div>
+                        <input type="file" id="file-input" accept=".mp4,.avi,.mov,.mkv,.webm,.flv,.wmv,.m4v" hidden>
+                    </div>
+
+                    <!-- File preview -->
+                    <div class="file-preview" id="file-preview" style="display: none;">
+                        <div class="file-info">
+                            <div class="file-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="file-name" id="file-name">asset.mp4</p>
+                                <p class="file-size" id="file-size">12.5 MB</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-remove magnetic" id="btn-remove" title="Remove payload">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Target Language Selection -->
+                    <div class="language-selection" id="language-selection" style="display: none;">
+                        <label for="target-language">Target Linguistic Output</label>
+                        <select id="target-language" class="language-dropdown">
+                            <option value="native" selected>Native (Source Audio Match)</option>
+                            <option value="en">English Translation</option>
+                            <option value="hi">Hindi Translation</option>
+                            <option value="te">Telugu Translation</option>
+                            <option value="fr">French Translation</option>
+                            <option value="es">Spanish Translation</option>
+                            <option value="de">German Translation</option>
+                        </select>
+                    </div>
+
+                    <!-- Upload button -->
+                    <button class="btn btn-primary magnetic" id="btn-upload" style="display: none;">
+                        <span class="btn-content">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 2L11 13"></path>
+                                <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+                            </svg>
+                            Initialize Processing
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Pipelines (Processing/Results/Error) -->
+        <div class="pipeline-wrapper">
+            
+            <!-- Progress Section -->
+            <section class="progress-section" id="progress-section" style="display: none;">
+                <div class="progress-card glass-card">
+                    <div class="progress-header">
+                        <div class="loader-ring"></div>
+                        <div>
+                            <h3 id="progress-title">Executing Neural Pipeline...</h3>
+                            <p id="progress-step" class="progress-step">Allocating resources</p>
+                        </div>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="glow-bar"></div>
+                        <div class="progress-bar" id="progress-bar"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="results-section" style="display: none;">
+                <div class="results-card glass-card">
+                    <div class="results-header">
+                        <div class="success-icon">
+                           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3>Pipeline Execution Complete</h3>
+                            <p class="results-meta">
+                                <span id="result-language">EN</span> •
+                                <span id="result-segments">0 Data Segments</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Transcript Preview -->
+                    <div class="transcript-box">
+                        <div class="transcript-header">
+                            <h4>Raw Output Stream</h4>
+                            <button class="btn btn-ghost magnetic" id="btn-copy">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                                Copy to Clipboard
+                            </button>
+                        </div>
+                        <div class="transcript-content" id="transcript-content"></div>
+                    </div>
+
+                    <!-- Download Buttons -->
+                    <div class="download-actions">
+                        <a class="btn btn-download magnetic" id="btn-download-txt" href="#" download>
+                            <span>Download Payload (.TXT)</span>
+                        </a>
+                        <a class="btn btn-download btn-glow magnetic" id="btn-download-srt" href="#" download>
+                            <span>Download Subtitles (.SRT)</span>
+                        </a>
+                    </div>
+
+                    <button class="btn btn-secondary magnetic" id="btn-new">
+                        Create New Pipeline
+                    </button>
+                </div>
+            </section>
+
+            <!-- Error Section -->
+            <section class="error-section" id="error-section" style="display: none;">
+                <div class="error-card glass-card">
+                    <div class="error-icon">⚠️</div>
+                    <h3>Execution Fault</h3>
+                    <p id="error-message">A critical failure occurred during execution.</p>
+                    <button class="btn btn-secondary magnetic" id="btn-retry">Restart Pipeline</button>
+                </div>
+            </section>
+        </div>
+
+        <footer class="footer gs-fade-up">
+            <p>Architected by Advanced Audio Intelligence</p>
+        </footer>
+    </div>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+    <script src="/static/script.js?v=5"></script>
+</body>
+</html>
